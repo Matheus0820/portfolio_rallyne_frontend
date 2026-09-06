@@ -1,0 +1,83 @@
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <h1>Fotografia que guarda o que as palavras não alcançam.</h1>
+      <p>
+        Rallyne Silva registra casamentos, ensaios e eventos com atenção aos
+        detalhes e à luz natural — sem poses forçadas, só o que é real entre
+        as pessoas.
+      </p>
+      <div class="hero__actions">
+        <a routerLink="/portfolio" class="btn btn-primary">Ver portfólio</a>
+        <a
+          href="https://www.instagram.com/rallynefotografia"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-outline"
+        >
+          Seguir no Instagram
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__art" aria-hidden="true">
+      <div class="hero__ring hero__ring--purple"></div>
+      <div class="hero__ring hero__ring--teal"></div>
+      <img src="assets/logo/icon-mark.png" alt="" class="hero__mark" />
+    </div>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section__head">
+    <h2>Últimos trabalhos</h2>
+    <a routerLink="/portfolio" class="section__more">Ver todos os eventos →</a>
+  </div>
+
+  <div class="work-grid" *ngIf="recentEvents().length; else emptyState">
+    <a
+      *ngFor="let event of recentEvents()"
+      [routerLink]="['/portfolio', event.id]"
+      class="work-card"
+    >
+      <div class="work-card__image">
+        <img *ngIf="cover(event) as src" [src]="src" [alt]="event.title" />
+      </div>
+      <div class="work-card__caption">
+        <h3>{{ event.title }}</h3>
+        <p>{{ event.location }}</p>
+      </div>
+    </a>
+  </div>
+
+  <ng-template #emptyState>
+    <p *ngIf="!loading()" class="empty-note">
+      Os primeiros ensaios estão a caminho por aqui. Enquanto isso, acompanhe o
+      trabalho mais recente
+      <a href="https://www.instagram.com/rallynefotografia" target="_blank" rel="noopener">no Instagram</a>.
+    </p>
+  </ng-template>
+</section>
+
+<section class="about">
+  <div class="container about__inner">
+    <img src="assets/logo/logo-full.png" alt="Rallyne Silva Fotografia" class="about__logo" />
+    <div>
+      <h2>Sobre o trabalho</h2>
+      <p>
+        Cada ensaio é conduzido com calma: primeiro a conversa, depois a
+        câmera. O objetivo é sempre o mesmo — fotos que envelhecem bem e que
+        contam a história certa daquele dia, seja um casamento, um aniversário
+        ou um ensaio pessoal.
+      </p>
+      <a
+        href="https://www.instagram.com/rallynefotografia"
+        target="_blank"
+        rel="noopener"
+        class="btn btn-outline"
+      >
+        @rallynefotografia
+      </a>
+    </div>
+  </div>
+</section>

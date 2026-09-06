@@ -1,0 +1,84 @@
+<header class="head">
+  <a routerLink="/admin/eventos" class="back">← Meus eventos</a>
+  <h1>{{ isEditMode ? 'Editar evento' : 'Novo evento' }}</h1>
+  <p>Preencha o título, o local e envie as fotos feitas nesse evento.</p>
+</header>
+
+<p *ngIf="loading()" class="state-note">Carregando evento…</p>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form" *ngIf="!loading()">
+  <div class="form__grid">
+    <div class="field">
+      <label for="title">Título do evento</label>
+      <input id="title" type="text" formControlName="title" placeholder="Ex.: Casamento Ana e Pedro" />
+    </div>
+
+    <div class="field">
+      <label for="location">Local</label>
+      <input id="location" type="text" formControlName="location" placeholder="Ex.: Natal, RN" />
+    </div>
+
+    <div class="field">
+      <label for="date">Data</label>
+      <input id="date" type="date" formControlName="date" />
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="description">Descrição (opcional)</label>
+    <textarea id="description" formControlName="description" rows="3" placeholder="Um breve resumo do evento"></textarea>
+  </div>
+
+  <div class="field" *ngIf="isEditMode && existingPhotos().length">
+    <label>Fotos já publicadas</label>
+    <div class="photo-grid">
+      <div class="photo-grid__item" *ngFor="let photo of existingPhotos()">
+        <img [src]="photoUrl(photo)" alt="" />
+        <button
+          type="button"
+          class="photo-grid__remove"
+          (click)="removeExistingPhoto(photo)"
+          [disabled]="removingPhotoId() === photo.id"
+          aria-label="Remover foto"
+        >
+          {{ removingPhotoId() === photo.id ? '…' : '✕' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="photos">{{ isEditMode ? 'Adicionar novas fotos' : 'Fotos do evento' }}</label>
+    <input
+      #fileInput
+      id="photos"
+      type="file"
+      accept="image/*"
+      multiple
+      (change)="onFilesSelected(fileInput)"
+    />
+
+    <div class="photo-grid" *ngIf="newPhotos().length">
+      <div class="photo-grid__item" *ngFor="let preview of newPhotos(); let i = index">
+        <img [src]="preview.url" alt="" />
+        <button
+          type="button"
+          class="photo-grid__remove"
+          (click)="removeNewPhoto(i)"
+          aria-label="Remover foto selecionada"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <p class="form__error" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+
+  <div class="form__actions">
+    <a routerLink="/admin/eventos" class="btn btn-outline">Cancelar</a>
+    <button type="submit" class="btn btn-primary" [disabled]="saving()">
+      {{ saving() ? 'Salvando…' : 'Salvar evento' }}
+    </button>
+  </div>
+</form>

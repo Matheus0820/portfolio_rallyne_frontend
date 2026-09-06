@@ -1,0 +1,26 @@
+<header class="topbar">
+  <div class="container topbar__inner">
+    <a routerLink="/" class="brand" (click)="closeMenu()">
+      <img src="assets/logo/logo-full.png" alt="Rallyne Silva Fotografia" class="brand__logo" />
+    </a>
+
+    <button
+      type="button"
+      class="burger"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Abrir menu de navegação"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav" [class.nav--open]="menuOpen()">
+      <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Início</a>
+      <a routerLink="/portfolio" routerLinkActive="is-active" (click)="closeMenu()">Portfólio</a>
+      <a href="https://www.instagram.com/rallynefotografia" target="_blank" rel="noopener">Instagram</a>
+      <a routerLink="/login" class="nav__cta" (click)="closeMenu()">Área da fotógrafa</a>
+    </nav>
+  </div>
+</header>

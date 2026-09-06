@@ -1,0 +1,23 @@
+<div class="admin">
+  <aside class="admin__sidebar">
+    <a routerLink="/" class="admin__brand">
+      <img src="assets/logo/icon-mark.png" alt="" />
+      <span>Rallyne Silva</span>
+    </a>
+
+    <nav class="admin__nav">
+      <a routerLink="/admin/eventos" routerLinkActive="is-active">Meus eventos</a>
+      <a routerLink="/admin/eventos/novo" routerLinkActive="is-active">Novo evento</a>
+    </nav>
+
+    <div class="admin__foot">
+      <p class="admin__user">Olá, {{ username }}</p>
+      <a routerLink="/" class="admin__view-site">Ver site público</a>
+      <button type="button" class="btn btn-ghost admin__logout" (click)="logout()">Sair</button>
+    </div>
+  </aside>
+
+  <main class="admin__content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,0 +1,29 @@
+<section class="container page">
+  <header class="page__head">
+    <h1>Portfólio</h1>
+    <p>Ensaios e eventos organizados por trabalho. Toque em um deles para ver a galeria completa.</p>
+  </header>
+
+  <p *ngIf="loading()" class="state-note">Carregando eventos…</p>
+  <p *ngIf="errorMessage()" class="state-note state-note--error">{{ errorMessage() }}</p>
+
+  <div class="grid" *ngIf="!loading() && events().length">
+    <a
+      *ngFor="let event of events()"
+      [routerLink]="['/portfolio', event.id]"
+      class="card"
+    >
+      <div class="card__image">
+        <img *ngIf="cover(event) as src" [src]="src" [alt]="event.title" />
+      </div>
+      <div class="card__caption">
+        <h2>{{ event.title }}</h2>
+        <p>{{ event.location }}</p>
+      </div>
+    </a>
+  </div>
+
+  <p *ngIf="!loading() && !errorMessage() && !events().length" class="state-note">
+    Nenhum evento publicado ainda. Volte em breve.
+  </p>
+</section>

@@ -1,0 +1,31 @@
+<div class="lightbox" (click)="close()">
+  <button type="button" class="lightbox__close" (click)="close()" aria-label="Fechar">✕</button>
+
+  <button
+    type="button"
+    class="lightbox__nav lightbox__nav--prev"
+    (click)="prev(); $event.stopPropagation()"
+    aria-label="Foto anterior"
+  >
+    ‹
+  </button>
+
+  <img
+    *ngIf="current as photo"
+    [src]="photo.url"
+    [alt]="photo.originalName || 'Foto do ensaio'"
+    class="lightbox__image"
+    (click)="$event.stopPropagation()"
+  />
+
+  <button
+    type="button"
+    class="lightbox__nav lightbox__nav--next"
+    (click)="next(); $event.stopPropagation()"
+    aria-label="Próxima foto"
+  >
+    ›
+  </button>
+
+  <p class="lightbox__counter">{{ index + 1 }} / {{ photos.length }}</p>
+</div>

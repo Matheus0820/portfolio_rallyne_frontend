@@ -1,0 +1,36 @@
+<section class="container page" *ngIf="!loading()">
+  <ng-container *ngIf="event() as ev; else notFoundBlock">
+    <header class="page__head">
+      <a routerLink="/portfolio" class="back">← Voltar ao portfólio</a>
+      <h1>{{ ev.title }}</h1>
+      <p class="meta">{{ ev.location }} · {{ ev.date | date: 'dd/MM/yyyy' }}</p>
+      <p *ngIf="ev.description" class="description">{{ ev.description }}</p>
+    </header>
+
+    <div class="gallery" *ngIf="ev.photos.length; else noPhotos">
+      <button
+        type="button"
+        class="gallery__item"
+        *ngFor="let photo of resolvedPhotos(); let i = index"
+        (click)="openLightbox(i)"
+      >
+        <img [src]="photo.url" [alt]="ev.title + ' — foto ' + (i + 1)" loading="lazy" />
+      </button>
+    </div>
+
+    <ng-template #noPhotos>
+      <p class="state-note">Este evento ainda não tem fotos publicadas.</p>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #notFoundBlock>
+    <p class="state-note">Evento não encontrado. <a routerLink="/portfolio">Voltar ao portfólio</a>.</p>
+  </ng-template>
+</section>
+
+<app-lightbox
+  *ngIf="lightboxIndex() !== null"
+  [photos]="resolvedPhotos()"
+  [index]="lightboxIndex()!"
+  (closed)="closeLightbox()"
+></app-lightbox>

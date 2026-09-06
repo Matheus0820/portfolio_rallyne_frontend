@@ -1,0 +1,47 @@
+<header class="head">
+  <div>
+    <h1>Meus eventos</h1>
+    <p>Gerencie os eventos que aparecem no portfólio público.</p>
+  </div>
+  <a routerLink="/admin/eventos/novo" class="btn btn-primary">+ Novo evento</a>
+</header>
+
+<p *ngIf="loading()" class="state-note">Carregando…</p>
+
+<div class="table" *ngIf="!loading() && events().length">
+  <div class="row row--head">
+    <span>Capa</span>
+    <span>Evento</span>
+    <span>Local</span>
+    <span>Fotos</span>
+    <span></span>
+  </div>
+
+  <div class="row" *ngFor="let event of events()">
+    <span class="thumb">
+      <img *ngIf="cover(event) as src" [src]="src" [alt]="event.title" />
+    </span>
+    <span>
+      <strong>{{ event.title }}</strong>
+      <small>{{ event.date | date: 'dd/MM/yyyy' }}</small>
+    </span>
+    <span>{{ event.location }}</span>
+    <span>{{ event.photos.length }}</span>
+    <span class="row__actions">
+      <a [routerLink]="['/portfolio', event.id]" target="_blank" class="btn btn-ghost">Ver</a>
+      <a [routerLink]="['/admin/eventos', event.id, 'editar']" class="btn btn-ghost">Editar</a>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="remove(event)"
+        [disabled]="deletingId() === event.id"
+      >
+        {{ deletingId() === event.id ? 'Excluindo…' : 'Excluir' }}
+      </button>
+    </span>
+  </div>
+</div>
+
+<p *ngIf="!loading() && !events().length" class="state-note">
+  Nenhum evento cadastrado ainda. Clique em "Novo evento" para adicionar o primeiro.
+</p>

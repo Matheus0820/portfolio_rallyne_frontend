@@ -1,0 +1,90 @@
+.page {
+  padding: 56px 24px 96px;
+}
+
+.page__head {
+  max-width: 60ch;
+  margin-bottom: 40px;
+}
+
+.page__head h1 {
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+}
+
+.page__head p {
+  color: var(--ink-soft);
+}
+
+.state-note {
+  color: var(--ink-soft);
+}
+
+.state-note--error {
+  color: #b5433a;
+}
+
+.grid {
+  column-count: 3;
+  column-gap: 22px;
+}
+
+.card {
+  display: block;
+  break-inside: avoid;
+  margin-bottom: 22px;
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  position: relative;
+  background: var(--bg-soft);
+}
+
+.card__image {
+  aspect-ratio: 4 / 5;
+  background: var(--bg-soft);
+  overflow: hidden;
+}
+
+.card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .card__image img {
+  transform: scale(1.04);
+}
+
+.card__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 34px 16px 14px;
+  background: linear-gradient(to top, rgba(3, 79, 81, 0.88), rgba(3, 79, 81, 0));
+  color: #fff;
+}
+
+.card__caption h2 {
+  font-size: 1.05rem;
+  margin: 0 0 2px;
+  color: #fff;
+}
+
+.card__caption p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 860px) {
+  .grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    column-count: 1;
+  }
+}
