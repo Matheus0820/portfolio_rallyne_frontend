@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EventService } from '../../../core/services/event.service';
@@ -18,6 +18,11 @@ interface PhotoPreview {
   styleUrl: './event-form.component.css'
 })
 export class EventFormComponent implements OnInit {
+  private readonly fb = inject(FormBuilder);
+  private readonly eventService = inject(EventService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+
   readonly eventId = signal<string | null>(null);
   readonly existingPhotos = signal<EventPhoto[]>([]);
   readonly newPhotos = signal<PhotoPreview[]>([]);
@@ -37,21 +42,16 @@ export class EventFormComponent implements OnInit {
     return this.eventId() !== null;
   }
 
-  constructor(
-    private readonly fb: FormBuilder,
-    private readonly eventService: EventService,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router
-  ) {}
-
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
+
     if (!id) {
       return;
     }
 
     this.eventId.set(id);
     this.loading.set(true);
+
     this.eventService.getById(id).subscribe({
       next: (event) => {
         this.populateForm(event);
@@ -71,13 +71,20 @@ export class EventFormComponent implements OnInit {
       date: event.date?.slice(0, 10) ?? '',
       description: event.description ?? ''
     });
+
     this.existingPhotos.set(event.photos);
   }
 
   onFilesSelected(input: HTMLInputElement): void {
     const files = Array.from(input.files ?? []);
-    const previews = files.map((file) => ({ file, url: URL.createObjectURL(file) }));
+
+    const previews = files.map((file) => ({
+      file,
+      url: URL.createObjectURL(file)
+    }));
+
     this.newPhotos.update((current) => [...current, ...previews]);
+
     input.value = '';
   }
 
@@ -85,25 +92,30 @@ export class EventFormComponent implements OnInit {
     this.newPhotos.update((current) => {
       const copy = [...current];
       const [removed] = copy.splice(index, 1);
+
       if (removed) {
         URL.revokeObjectURL(removed.url);
       }
+
       return copy;
     });
   }
 
   removeExistingPhoto(photo: EventPhoto): void {
     const id = this.eventId();
+
     if (!id) {
       return;
     }
 
     const confirmed = confirm('Remover esta foto do evento?');
+
     if (!confirmed) {
       return;
     }
 
     this.removingPhotoId.set(photo.id);
+
     this.eventService.deletePhoto(id, photo.id).subscribe({
       next: (updatedEvent) => {
         this.existingPhotos.set(updatedEvent.photos);
@@ -125,6 +137,7 @@ export class EventFormComponent implements OnInit {
 
     this.saving.set(true);
     this.errorMessage.set(null);
+
     const payload = this.form.getRawValue();
     const files = this.newPhotos().map((preview) => preview.file);
     const id = this.eventId();
@@ -140,9 +153,12 @@ export class EventFormComponent implements OnInit {
       },
       error: (err) => {
         this.saving.set(false);
+
         const backendMessage = err?.error?.message;
+
         this.errorMessage.set(
-          backendMessage || 'Não foi possível salvar o evento. Verifique os dados e tente novamente.'
+          backendMessage ||
+            'Não foi possível salvar o evento. Verifique os dados e tente novamente.'
         );
       }
     });
