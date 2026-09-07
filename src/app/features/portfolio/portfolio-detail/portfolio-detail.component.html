@@ -3,7 +3,7 @@
     <header class="page__head">
       <a routerLink="/portfolio" class="back">← Voltar ao portfólio</a>
       <h1>{{ ev.title }}</h1>
-      <p class="meta">{{ ev.location }} · {{ ev.date | date: 'dd/MM/yyyy' }}</p>
+      <p class="meta">{{ ev.location }} · {{ (ev.date | date: 'dd/MM/yyyy') || 'Data não informada' }}</p>
       <p *ngIf="ev.description" class="description">{{ ev.description }}</p>
     </header>
 

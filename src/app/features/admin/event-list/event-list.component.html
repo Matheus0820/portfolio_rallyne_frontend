@@ -23,7 +23,7 @@
     </span>
     <span>
       <strong>{{ event.title }}</strong>
-      <small>{{ event.date | date: 'dd/MM/yyyy' }}</small>
+      <small>{{ (event.date | date: 'dd/MM/yyyy') || '—' }}</small>
     </span>
     <span>{{ event.location }}</span>
     <span>{{ event.photos.length }}</span>
