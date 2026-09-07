@@ -24,33 +24,48 @@ export class EventListComponent implements OnInit {
 
   load(): void {
     this.loading.set(true);
+
     this.eventService.list().subscribe({
       next: (events) => {
         this.events.set(events);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false)
+      error: () => {
+        this.loading.set(false);
+      }
     });
   }
 
   cover(event: PortfolioEvent): string | null {
     const first = event.photos[0];
-    return first ? this.eventService.resolvePhotoUrl(first.url) : null;
+
+    return first
+      ? this.eventService.resolvePhotoUrl(first.url)
+      : null;
   }
 
   remove(event: PortfolioEvent): void {
-    const confirmed = confirm(`Excluir o evento "${event.title}" e todas as suas fotos?`);
+    const confirmed = confirm(
+      `Excluir o evento "${event.title}" e todas as suas fotos?`
+    );
+
     if (!confirmed) {
       return;
     }
 
     this.deletingId.set(event.id);
+
     this.eventService.delete(event.id).subscribe({
       next: () => {
-        this.events.update((list) => list.filter((item) => item.id !== event.id));
+        this.events.update((list) =>
+          list.filter((item) => item.id !== event.id)
+        );
+
         this.deletingId.set(null);
       },
-      error: () => this.deletingId.set(null)
+      error: () => {
+        this.deletingId.set(null);
+      }
     });
   }
 }
