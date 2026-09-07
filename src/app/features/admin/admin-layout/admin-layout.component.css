@@ -24,10 +24,9 @@
 }
 
 .admin__brand img {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
 }
 
 .admin__nav {
