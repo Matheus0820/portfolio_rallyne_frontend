@@ -21,6 +21,13 @@
     <ng-template #noPhotos>
       <p class="state-note">Este evento ainda não tem fotos publicadas.</p>
     </ng-template>
+
+    <div class="contact-cta">
+      <p>Gostou do que viu? Vamos conversar sobre o seu ensaio.</p>
+      <a [href]="whatsappUrl" target="_blank" rel="noopener" class="btn btn-primary">
+        Falar no WhatsApp
+      </a>
+    </div>
   </ng-container>
 
   <ng-template #notFoundBlock>

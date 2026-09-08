@@ -21,6 +21,7 @@
       <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Início</a>
       <a routerLink="/portfolio" routerLinkActive="is-active" (click)="closeMenu()">Portfólio</a>
       <a href="https://www.instagram.com/rallynefotografia" target="_blank" rel="noopener">Instagram</a>
+      <a [href]="whatsappUrl" target="_blank" rel="noopener">WhatsApp</a>
       <a routerLink="/login" class="nav__cta" (click)="closeMenu()">Área da fotógrafa</a>
     </nav>
   </div>

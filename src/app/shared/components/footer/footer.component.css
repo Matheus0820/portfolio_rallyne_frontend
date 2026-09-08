@@ -40,7 +40,8 @@
 
 .footer__links {
   display: flex;
-  gap: 22px;
+  gap: 10px 22px;
+  flex-wrap: wrap;
   font-weight: 600;
   font-size: 0.9rem;
 }

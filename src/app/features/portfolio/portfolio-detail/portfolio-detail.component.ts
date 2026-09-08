@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EventService } from '../../../core/services/event.service';
 import { EventPhoto, PortfolioEvent } from '../../../core/models/event.model';
 import { LightboxComponent } from '../../../shared/components/lightbox/lightbox.component';
+import { WHATSAPP_URL } from '../../../shared/constants/contact';
 
 @Component({
   selector: 'app-portfolio-detail',
@@ -13,6 +14,7 @@ import { LightboxComponent } from '../../../shared/components/lightbox/lightbox.
   styleUrl: './portfolio-detail.component.css'
 })
 export class PortfolioDetailComponent implements OnInit {
+  readonly whatsappUrl = WHATSAPP_URL;
   readonly event = signal<PortfolioEvent | null>(null);
   readonly loading = signal(true);
   readonly notFound = signal(false);

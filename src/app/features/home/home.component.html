@@ -6,15 +6,10 @@
         Rallyne Silva fotografa casamentos, ensaios e eventos com um olhar documental e contemporâneo. Seu trabalho prioriza luz natural, composição e direção sutil para produzir imagens espontâneas, consistentes e atemporais.
       </p>
       <div class="hero__actions">
-        <a routerLink="/portfolio" class="btn btn-primary">Ver portfólio</a>
-        <a
-          href="https://www.instagram.com/rallynefotografia"
-          target="_blank"
-          rel="noopener"
-          class="btn btn-outline"
-        >
-          Seguir no Instagram
+        <a [href]="whatsappUrl" target="_blank" rel="noopener" class="btn btn-primary">
+          Falar no WhatsApp
         </a>
+        <a routerLink="/portfolio" class="btn btn-outline">Ver portfólio</a>
       </div>
     </div>
 
@@ -68,14 +63,19 @@
         contam a história certa daquele dia, seja um casamento, um aniversário
         ou um ensaio pessoal.
       </p>
-      <a
-        href="https://www.instagram.com/rallynefotografia"
-        target="_blank"
-        rel="noopener"
-        class="btn btn-outline"
-      >
-        &#64;rallynefotografia
-      </a>
+      <div class="about__actions">
+        <a
+          href="https://www.instagram.com/rallynefotografia"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-outline"
+        >
+          &#64;rallynefotografia
+        </a>
+        <a [href]="whatsappUrl" target="_blank" rel="noopener" class="btn btn-primary">
+          Falar no WhatsApp
+        </a>
+      </div>
     </div>
   </div>
 </section>

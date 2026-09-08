@@ -3,6 +3,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { EventService } from '../../core/services/event.service';
 import { PortfolioEvent } from '../../core/models/event.model';
+import { WHATSAPP_URL } from '../../shared/constants/contact';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { PortfolioEvent } from '../../core/models/event.model';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  readonly whatsappUrl = WHATSAPP_URL;
   readonly recentEvents = signal<PortfolioEvent[]>([]);
   readonly loading = signal(true);
 

@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { WHATSAPP_URL } from '../../constants/contact';
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +10,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  readonly whatsappUrl = WHATSAPP_URL;
   readonly menuOpen = signal(false);
 
   toggleMenu(): void {

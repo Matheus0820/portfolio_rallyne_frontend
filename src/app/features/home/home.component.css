@@ -189,6 +189,21 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
+.about .btn-primary {
+  background: #25d366;
+}
+
+.about .btn-primary:hover {
+  background: #1ebc59;
+}
+
+.about__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
 @media (max-width: 860px) {
   .hero__grid {
     grid-template-columns: 1fr;
